@@ -5,27 +5,27 @@ const USER_ID_SELECTOR = 'div.card__header span.user';
 const DESCRIPTION_SELECTOR = 'div.card__body p';
 const USER_DETAILS_SELECTOR = 'div#descripcion tbody';
 const CREDIT_HISTORY_SELECTOR = 'div#historial tbody tr';
+const AUTHENTICITY_TOKEN_SELECTOR = 'form#ticket-authorization input[name=\'authenticity_token\']';
+const APPLICATION_ID_SELECTOR = (id) => `form#ticket-authorization input#app-id-${id}`;
 
-const PURPOSE_SELECTOR = 'td.purpose a';
-const PAY_IN_MONTHS_SELECTOR = 'td.term a';
-const DAYS_LEFT_SELECTOR = 'td.left a';
-const ALREADY_LENT_CLASS = 'yalep';
-const MISSING_AMOUNT_SELECTOR = {SIBLING: 'td.term', OK: 'a'};
-
-function parseRequisitionDetails(response) {
+function parseRequisitionDetails(response, id) {
   const {data} = response;
   const $ = cheerio.load(data);
 
   return {
     id: getId($),
+    applicationId: getApplicationId($, id),
     userId: getUserId($),
     description: getDescription($),
     userDetails: getUserDetails($),
-    creditHistory: getCreditHistory($)
+    creditHistory: getCreditHistory($),
+    authenticityToken: getAuthenticityToken($)
   };
 };
 
 const getId = $ => parseId($(ID_SELECTOR).text().trim());
+
+const getApplicationId = ($, id) => $(APPLICATION_ID_SELECTOR(id)).attr('value');
 
 const getUserId = $ => $(USER_ID_SELECTOR).text().trim();
 
@@ -75,26 +75,9 @@ const getCreditHistory = ($) => {
   };
 };
 
-const getInterestRate = $ => parseNumber($.find(INTEREST_RATE_SELECTOR).text().trim());
-
-const getAmount = $ => parseNumber($.find(AMOUNT_SELECTOR).text().trim());
-
-const getPurpose = $ => $.find(PURPOSE_SELECTOR).text().trim().toUpperCase();
-
-const getPayInMonths = $ => parseNumber($.find(PAY_IN_MONTHS_SELECTOR).text().trim());
-
-const getMissingAmount = $ => parseNumber($
-  .find(MISSING_AMOUNT_SELECTOR.SIBLING).next()
-  .find(MISSING_AMOUNT_SELECTOR.OK).text().trim()
-);
-
-const getdaysLeft = $ => parseNumber($.find(DAYS_LEFT_SELECTOR).text().trim());
-
-const getAlreadyLent = $ => $.hasClass(ALREADY_LENT_CLASS);
+const getAuthenticityToken = $ => $(AUTHENTICITY_TOKEN_SELECTOR).attr('value');
 
 const parseId = str => str.replace(/[^0-9]/g, '');
-
-const parseNumber = str => parseFloat(str.replace(/[^0-9.]/g, ''));
 
 const getLastColumnText = item => item.find('td').last().text().trim();
 

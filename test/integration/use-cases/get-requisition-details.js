@@ -17,8 +17,10 @@ describe('Use Cases | getRequisitionDetails', () => {
 });
 
 function expectRequisitionDetails(requisition) {
+  console.log(requisition);
   expect(requisition).to.be.an('object');
   expect(requisition).to.be.have.property('id').and.to.be.a('string');
+  expect(requisition).to.be.have.property('applicationId').and.to.be.a('string');
   expect(requisition).to.be.have.property('userId').and.to.be.a('string');
   expect(requisition).to.be.have.property('score').and.to.be.a('string');
   expect(requisition).to.be.have.property('rate').and.to.be.a('number');
@@ -28,4 +30,5 @@ function expectRequisitionDetails(requisition) {
   expect(requisition).to.be.have.property('missingAmount').and.to.be.a('number');
   expect(requisition).to.be.have.property('daysLeft').and.to.be.a('number');
   expect(requisition).to.be.have.property('hasLent').and.to.be.a('boolean');
+  expect(requisition).to.be.have.property('authenticityToken').and.to.be.a('string');
 }

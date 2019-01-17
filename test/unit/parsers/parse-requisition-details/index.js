@@ -2,8 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const {parseRequisitionDetails} = require(`${ROOT_PATH}/src/parsers`);
 
+const ID = '562776';
+
 const EXPECTED_DETAILS = {
   id: '562776',
+  applicationId: '414513',
   userId: 'ccollada-414513',
   description: 'Give me the money!!',
   userDetails: {
@@ -23,7 +26,8 @@ const EXPECTED_DETAILS = {
     durationYears: 10,
     queries: 5,
     openedAccounts: 22
-  }
+  },
+  authenticityToken: '9GFU4w6jDYheql90zlnXfYfVSn1LrtI7G5toRmeJoXHkWaLZJf84twdMLx76jFSlpRMacze6jjoLsjUlitJa1w=='
 };
 
 describe('Parsers | parseRequisitionDetails', () => {
@@ -36,7 +40,7 @@ describe('Parsers | parseRequisitionDetails', () => {
   });
 
   it('should parse html requisition details', () => {
-    const requisition = parseRequisitionDetails(response);
+    const requisition = parseRequisitionDetails(response, ID);
 
     expectRequisitionDetails(requisition);
     expect(requisition).to.be.deep.equal(EXPECTED_DETAILS);

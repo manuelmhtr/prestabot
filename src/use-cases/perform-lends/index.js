@@ -1,15 +1,22 @@
 const {get} = require('lodash');
-const {getMinInterestRate, getMinCreditHistoryScore} = require('../../config');
 const getSessionToken = require('../get-session-token');
 const getRequisitions = require('../get-requisitions');
 const getRequisitionDetails = require('../get-requisition-details');
 const lend = require('../lend');
+const {
+  getInterestRateClassifications,
+  getMinCreditHistoryScore,
+  getLoanAmounts
+} = require('../../config');
 
-const MIN_INTEREST_RATE = getMinInterestRate();
+const LOAN_AMOUNTS = getLoanAmounts();
+const INTEREST_RATE_CLASSIFICATIONS = getInterestRateClassifications();
+const MIN_INTEREST_RATE = INTEREST_RATE_CLASSIFICATIONS.LOW;
 const MIN_CREDIT_HISTORY_SCORE = getMinCreditHistoryScore();
 
 function performLends(params) {
   const {credentials} = params;
+  const {password} = credentials;
 
   const execute = async () => {
     const sessionToken = await getSessionToken(credentials);
@@ -18,7 +25,7 @@ function performLends(params) {
     const populatedRequisitions = await populateRequisitions(sessionToken, possibleOnes);
     const bestOnes = populatedRequisitions.filter(detailedFilter);
     const sortedRequisitions = sortRequisitions(bestOnes);
-    console.log(sortedRequisitions);
+    return lendRequisitions(sessionToken, sortedRequisitions);
   };
 
   const simpleFilter = (requisition) => {
@@ -46,11 +53,28 @@ function performLends(params) {
     return requisitions.sort((a, b) => a.interestRate < b.interestRate);
   };
 
-  const lendRequisitions = (requisitions) => {
+  const lendRequisitions = (sessionToken, requisitions) => {
     return requisitions.reduce(async (waitForLast, requisition) => {
       await waitForLast;
-      const {id} = requisition
+      const {id, applicationId, authenticityToken} = requisition;
+      const amount = calculateLoanAmount(requisition);
+      const params = {
+        id,
+        amount,
+        password,
+        sessionToken,
+        applicationId,
+        authenticityToken
+      };
+      return lend(params);
     }, Promise.resolve());
+  };
+
+  const calculateLoanAmount = (requisition) => {
+    const {interestRate} = requisition;
+    if (interestRate >= INTEREST_RATE_CLASSIFICATIONS.HIGH) return LOAN_AMOUNTS.HIGH;
+    if (interestRate >= INTEREST_RATE_CLASSIFICATIONS.MID) return LOAN_AMOUNTS.MID;
+    if (interestRate >= INTEREST_RATE_CLASSIFICATIONS.LOW) return LOAN_AMOUNTS.LOW;
   };
 
   return execute();

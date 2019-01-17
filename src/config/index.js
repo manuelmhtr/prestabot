@@ -8,13 +8,16 @@ const getCredentials = () => ({
 
 const getSessionTokenCookieName = () => data.sessionTokenCookieName;
 
-const getMinInterestRate = () => data.minInterestRate;
+const getInterestRateClassifications = () => data.interestRateClassifications;
+
+const getLoanAmounts = () => data.loanAmounts;
 
 const getMinCreditHistoryScore = () => data.minCreditHistoryScore;
 
 module.exports = {
   getCredentials,
   getSessionTokenCookieName,
-  getMinInterestRate,
+  getInterestRateClassifications,
+  getLoanAmounts,
   getMinCreditHistoryScore
 };
