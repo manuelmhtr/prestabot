@@ -2,7 +2,7 @@ const cheerio = require('cheerio');
 
 const ID_SELECTOR = 'header h1';
 const USER_ID_SELECTOR = 'div.card__header span.user';
-const DESCRIPTION_SELECTOR = 'div.card__body p';
+const DESCRIPTION_SELECTOR = 'div.card.detail.mb-3 div.card__body p';
 const USER_DETAILS_SELECTOR = 'div#descripcion tbody';
 const CREDIT_HISTORY_SELECTOR = 'div#historial tbody tr';
 const AUTHENTICITY_TOKEN_SELECTOR = 'form#ticket-authorization input[name=\'authenticity_token\']';

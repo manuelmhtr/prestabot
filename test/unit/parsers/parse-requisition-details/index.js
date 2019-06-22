@@ -2,32 +2,30 @@ const fs = require('fs');
 const path = require('path');
 const {parseRequisitionDetails} = require(`${ROOT_PATH}/src/parsers`);
 
-const ID = '562776';
-
 const EXPECTED_DETAILS = {
-  id: '562776',
-  applicationId: '414513',
-  userId: 'ccollada-414513',
-  description: 'Give me the money!!',
+  id: '764702',
+  applicationId: '607362',
+  userId: 'MRS-607362',
+  description: 'Soy Mario hace 4 años invertí en una franquicia y en este momento tengo la oportunidad de invertir en otra sucursal, sin embargo me quede corto en el proyecto con 300,000 por lo que estoy buscando la manera de obtenerlos para continuar con mi proyecto ya que los intereses del banco están demasiado altos.',
   userDetails: {
-    age: 29,
+    age: 30,
     dependents: 0,
     hasMedicalInsuranse: true,
-    jobAge: 3,
+    jobAge: 4,
     studiesLevel: 'Profesional',
-    addressState: 'Mexico',
+    addressState: 'Jalisco',
     addressType: 'Vivo con familia',
     profession: '',
     hasOwnCar: false,
     jobType: 'Tengo un negocio'
   },
   creditHistory: {
-    score: 705,
-    durationYears: 10,
-    queries: 5,
-    openedAccounts: 22
+    score: 720,
+    durationYears: 11,
+    queries: 6,
+    openedAccounts: 6
   },
-  authenticityToken: '9GFU4w6jDYheql90zlnXfYfVSn1LrtI7G5toRmeJoXHkWaLZJf84twdMLx76jFSlpRMacze6jjoLsjUlitJa1w=='
+  authenticityToken: 'GMxH07TeOGmmmSyO8f5qww6vPV1QZbrGAYCjByCju9zOe9ByX8ZQw/JLFi20swwKDFLUfsEqYseQZ5VbjQ3j5w=='
 };
 
 describe('Parsers | parseRequisitionDetails', () => {
@@ -40,7 +38,7 @@ describe('Parsers | parseRequisitionDetails', () => {
   });
 
   it('should parse html requisition details', () => {
-    const requisition = parseRequisitionDetails(response, ID);
+    const requisition = parseRequisitionDetails(response, EXPECTED_DETAILS.id);
 
     expectRequisitionDetails(requisition);
     expect(requisition).to.be.deep.equal(EXPECTED_DETAILS);

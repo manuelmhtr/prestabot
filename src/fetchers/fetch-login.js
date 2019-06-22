@@ -15,7 +15,7 @@ function fetchLogin(credentials) {
 
   const config = {
     data,
-    url: 'https://yotepresto.com/sign_in',
+    url: 'https://www.yotepresto.com/sign_in',
     method: 'post',
     headers: {
       'content-type': 'application/x-www-form-urlencoded; charset=UTF-8',

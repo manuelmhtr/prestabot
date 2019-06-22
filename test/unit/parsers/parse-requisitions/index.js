@@ -2,17 +2,17 @@ const fs = require('fs');
 const path = require('path');
 const {parseRequisitions} = require(`${ROOT_PATH}/src/parsers`);
 
-const REQUISITIONS_COUNT = 28;
+const REQUISITIONS_COUNT = 81;
 const REQUISITION_EXAMPLE = {
-  id: '555337',
-  userId: 'rfcpraxairmx-407617',
-  score: 'C2',
-  interestRate: 23.9,
-  amount: 50000,
-  purpose: 'OTROS',
-  payInMonths: 36,
-  missingAmount: 6600,
-  daysLeft: 24,
+  id: '764702',
+  userId: 'MRS-607362',
+  score: 'C1',
+  interestRate: 22.9,
+  amount: 200000,
+  purpose: 'NEGOCIO',
+  payInMonths: 24,
+  missingAmount: 117800,
+  daysLeft: 23,
   alreadyLent: true
 };
 
