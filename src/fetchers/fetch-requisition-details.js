@@ -5,7 +5,7 @@ const SESSION_COOKIE = getSessionTokenCookieName();
 
 function fetchRequisitionDetails(sessionToken, id) {
   const config = {
-    url: `https://yotepresto.com/user/requisitions/${id}`,
+    url: `https://www.yotepresto.com/user/requisitions/${id}`,
     method: 'get',
     headers: {
       cookie: `${SESSION_COOKIE}=${sessionToken};`

@@ -2,9 +2,9 @@ module.exports = {
   sessionTokenCookieName: '_YoTePrestoClient_session',
   minCreditHistoryScore: 680,
   interestRateClassifications: {
-    LOW: 21.0,
-    MID: 26.0,
-    HIGH: 29.0
+    LOW: 22.0, // C1
+    MID: 27.0, // C4
+    HIGH: 32.0 // C6
   },
   loanAmounts: {
     LOW: 200,

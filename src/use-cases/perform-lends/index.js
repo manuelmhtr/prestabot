@@ -13,6 +13,7 @@ const LOAN_AMOUNTS = getLoanAmounts();
 const INTEREST_RATE_CLASSIFICATIONS = getInterestRateClassifications();
 const MIN_INTEREST_RATE = INTEREST_RATE_CLASSIFICATIONS.LOW;
 const MIN_CREDIT_HISTORY_SCORE = getMinCreditHistoryScore();
+const AVOID_PURPOSES = ['NEGOCIO', 'OTROS'];
 
 function performLends(params) {
   const {credentials} = params;
@@ -29,9 +30,10 @@ function performLends(params) {
   };
 
   const simpleFilter = (requisition) => {
-    const {alreadyLent, interestRate} = requisition;
+    const {alreadyLent, interestRate, purpose} = requisition;
     if (alreadyLent) return false;
     if (interestRate < MIN_INTEREST_RATE) return false;
+    if (AVOID_PURPOSES.includes(purpose)) return false;
     return true;
   };
 

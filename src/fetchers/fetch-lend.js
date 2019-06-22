@@ -25,11 +25,10 @@ function fetchLend(params) {
     'ticket[password]': password,
     'commit': COMMIT
   });
-  console.log(data);
 
   const config = {
     data,
-    url: 'https://yotepresto.com/user/tickets/add_and_approve',
+    url: 'https://www.yotepresto.com/user/tickets/add_and_approve',
     method: 'post',
     headers: {
       'cookie': `${SESSION_COOKIE}=${sessionToken};`,
