@@ -8,20 +8,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manuelmhtr/Prestabot.git"
+    "url": "git+https://github.com/manuelmhtr/prestabot.git"
   },
   "author": "Manuel de la Torre",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/manuelmhtr/Prestabot/issues"
+    "url": "https://github.com/manuelmhtr/prestabot/issues"
   },
-  "homepage": "https://github.com/manuelmhtr/Prestabot#readme",
+  "homepage": "https://github.com/manuelmhtr/prestabot#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "chai": "^4.2.0",
     "cheerio": "^1.0.0-rc.2",
     "lodash": "^4.17.11",
-    "mocha": "^5.2.0",
     "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2"
   }
 }

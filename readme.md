@@ -1,4 +1,4 @@
 # Prestabot
 
-Bot for lending money in Yotepresto programmatically.
+Bot for lending money in [yotepresto.com](https://www.yotepresto.com/) programmatically.
 
