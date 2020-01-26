@@ -4,15 +4,13 @@ const getRequisitions = require('../get-requisitions');
 const getRequisitionDetails = require('../get-requisition-details');
 const lend = require('../lend');
 const {
-  getInterestRateClassifications,
-  getMinCreditHistoryScore,
-  getLoanAmounts
+  getMinInterestRate,
+  getMinCreditScore,
+  getLendAmount
 } = require('../../config');
 
-const LOAN_AMOUNTS = getLoanAmounts();
-const INTEREST_RATE_CLASSIFICATIONS = getInterestRateClassifications();
-const MIN_INTEREST_RATE = INTEREST_RATE_CLASSIFICATIONS.LOW;
-const MIN_CREDIT_HISTORY_SCORE = getMinCreditHistoryScore();
+const MIN_INTEREST_RATE = getMinInterestRate();
+const MIN_CREDIT_SCORE = getMinCreditScore();
 const AVOID_PURPOSES = ['NEGOCIO', 'OTROS'];
 
 function performLends(params) {
@@ -47,7 +45,7 @@ function performLends(params) {
 
   const detailedFilter = (requisition) => {
     const creditScore = get(requisition, 'creditHistory.score');
-    if (creditScore < MIN_CREDIT_HISTORY_SCORE) return false;
+    if (creditScore < MIN_CREDIT_SCORE) return false;
     return true;
   };
 
@@ -59,7 +57,7 @@ function performLends(params) {
     return requisitions.reduce(async (waitForLast, requisition) => {
       await waitForLast;
       const {id, applicationId, authenticityToken} = requisition;
-      const amount = calculateLoanAmount(requisition);
+      const amount = getLendAmount();
       const params = {
         id,
         amount,
@@ -70,13 +68,6 @@ function performLends(params) {
       };
       return lend(params);
     }, Promise.resolve());
-  };
-
-  const calculateLoanAmount = (requisition) => {
-    const {interestRate} = requisition;
-    if (interestRate >= INTEREST_RATE_CLASSIFICATIONS.HIGH) return LOAN_AMOUNTS.HIGH;
-    if (interestRate >= INTEREST_RATE_CLASSIFICATIONS.MID) return LOAN_AMOUNTS.MID;
-    if (interestRate >= INTEREST_RATE_CLASSIFICATIONS.LOW) return LOAN_AMOUNTS.LOW;
   };
 
   return execute();

@@ -8,16 +8,16 @@ const getCredentials = () => ({
 
 const getSessionTokenCookieName = () => data.sessionTokenCookieName;
 
-const getInterestRateClassifications = () => data.interestRateClassifications;
+const getMinInterestRate = () => parseFloat(env.MIN_INTEREST);
 
-const getLoanAmounts = () => data.loanAmounts;
+const getLendAmount = () => parseInt(env.LEND_AMOUNT, 10);
 
-const getMinCreditHistoryScore = () => data.minCreditHistoryScore;
+const getMinCreditScore = () => parseInt(env.MIN_CREDIT_SCORE, 10);
 
 module.exports = {
   getCredentials,
   getSessionTokenCookieName,
-  getInterestRateClassifications,
-  getLoanAmounts,
-  getMinCreditHistoryScore
+  getMinInterestRate,
+  getLendAmount,
+  getMinCreditScore
 };
