@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/manuelmhtr/prestabot#readme",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.2",
     "cheerio": "^1.0.0-rc.2",
     "lodash": "^4.17.11",
     "querystring": "^0.2.0"
