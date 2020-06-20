@@ -1,4 +1,3 @@
-const data = require('./data');
 const {env} = process;
 
 const getCredentials = () => ({
@@ -6,7 +5,12 @@ const getCredentials = () => ({
   password: env.PASSWORD
 });
 
-const getSessionTokenCookieName = () => data.sessionTokenCookieName;
+const getOtpSecret = () => env.OTP_SECRET;
+
+const getTermRange = () => ({
+  min: env.MIN_TERM ? parseInt(env.MIN_TERM, 10) : null,
+  max: env.MAX_TERM ? parseInt(env.MAX_TERM, 10) : null,
+});
 
 const getMinInterestRate = () => parseFloat(env.MIN_INTEREST);
 
@@ -16,8 +20,9 @@ const getMinCreditScore = () => parseInt(env.MIN_CREDIT_SCORE, 10);
 
 module.exports = {
   getCredentials,
-  getSessionTokenCookieName,
+  getOtpSecret,
+  getTermRange,
   getMinInterestRate,
   getLendAmount,
-  getMinCreditScore
+  getMinCreditScore,
 };

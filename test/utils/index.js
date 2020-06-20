@@ -1,5 +1,3 @@
-const getSessionToken = require('./get-session-token');
-
 module.exports = {
-  getSessionToken
+  getExpectedHeaders: require('./get-expected-headers'),
 };

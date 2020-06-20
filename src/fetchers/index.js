@@ -1,11 +1,11 @@
-const fetchLend = require('./fetch-lend');
+const addRequisitionToCart = require('./add-requisition-to-cart');
+const authorizeCart = require('./authorize-cart');
 const fetchLogin = require('./fetch-login');
-const fetchRequisitionDetails = require('./fetch-requisition-details');
 const fetchRequisitions = require('./fetch-requisitions');
 
 module.exports = {
-  fetchLend,
+  addRequisitionToCart,
+  authorizeCart,
   fetchLogin,
-  fetchRequisitionDetails,
   fetchRequisitions
 };

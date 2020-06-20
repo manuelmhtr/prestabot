@@ -1,10 +1,4 @@
-const {performLends} = require('../use-cases');
-const {getCredentials} = require('../config');
-
-function execute() {
-  const credentials = getCredentials();
-  return performLends({credentials});
-}
+const execute = require('./execute');
 
 exports.handler = (event, context, callback) => {
   return execute()

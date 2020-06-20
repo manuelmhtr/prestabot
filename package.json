@@ -1,6 +1,6 @@
 {
   "name": "prestabot",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "Bot for lending money in Yotepresto programmatically",
   "main": "src/index.js",
   "scripts": {
@@ -11,19 +11,24 @@
     "url": "git+https://github.com/manuelmhtr/prestabot.git"
   },
   "author": "Manuel de la Torre",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/manuelmhtr/prestabot/issues"
   },
   "homepage": "https://github.com/manuelmhtr/prestabot#readme",
+  "jest": {
+    "testEnvironment": "node",
+    "setupFiles": [
+      "./test/index.js"
+    ]
+  },
   "dependencies": {
-    "axios": "^0.18.0",
-    "cheerio": "^1.0.0-rc.2",
+    "axios": "^0.19.2",
     "lodash": "^4.17.11",
-    "querystring": "^0.2.0"
+    "totp-generator": "^0.0.7"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^6.2.2"
+    "jest": "^26.0.1",
+    "nock": "^12.0.3"
   }
 }
