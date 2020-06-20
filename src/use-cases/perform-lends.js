@@ -1,3 +1,4 @@
+const { get } = require('lodash');
 const totp = require('totp-generator');
 const {
   addRequisitionToCart,
@@ -42,7 +43,7 @@ function performLends(params) {
 
   const simpleFilter = (requisition) => {
     const { alreadyLent, interestRate, purpose, term, missingAmount } = requisition;
-    const creditScore = requisition?.creditReport?.score;
+    const creditScore = get(requisition, 'creditReport.score');
     if (alreadyLent) return false;
     if (!missingAmount || missingAmount < LEND_AMOUNT) return false;
     if (interestRate < MIN_INTEREST_RATE) return false;

@@ -4,7 +4,7 @@ module.exports = (response) => {
   const { headers, data } = response;
 
   return {
-    user: data?.data,
+    user: data.data,
     accessToken: getAccessToken(headers)
   };
 };

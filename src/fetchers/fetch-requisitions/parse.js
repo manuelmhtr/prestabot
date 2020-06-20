@@ -1,3 +1,4 @@
+const { get } = require('lodash');
 const { getAccessToken } = require('../../parsers');
 
 const parseRequisition = (data) => {
@@ -12,12 +13,12 @@ const parseRequisition = (data) => {
     purpose: data.destination.toUpperCase(),
     term: parseInt(data.term, 10),
     amount: parseFloat(data.approved_amount),
-    missingAmount: parseFloat(data?.loan_detail?.missing_amount),
-    daysToEnd: parseInt(data?.loan_detail?.days_to_end, 10),
+    missingAmount: parseFloat(get(data, 'loan_detail.missing_amount')),
+    daysToEnd: parseInt(get(data, 'loan_detail.days_to_end'), 10),
     hidden: data.hidden,
     creditReport: {
-      score: parseInt(data?.credit_report?.score, 10),
-      age: parseInt(data?.credit_report?.history_antiquity, 10),
+      score: parseInt(get(data, 'credit_report.score'), 10),
+      age: parseInt(get(data, 'credit_report.history_antiquity'), 10),
     },
   };
 };
