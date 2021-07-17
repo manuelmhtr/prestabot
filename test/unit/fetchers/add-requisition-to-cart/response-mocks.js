@@ -1,7 +1,7 @@
 const nock = require('nock');
 
 const host = 'https://api.yotepresto.com';
-const path = '/v2/investor/shopping_cards';
+const path = '/v2/investor/shopping_carts';
 const successfulResponse = {
   status: 200,
   headers: {

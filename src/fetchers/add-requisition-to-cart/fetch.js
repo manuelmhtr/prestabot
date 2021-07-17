@@ -3,7 +3,7 @@ const { request } = require('../yotepresto-fetcher');
 module.exports = ({ requisitionId, amount, accessToken }) => request({
   accessToken,
   method: 'post',
-  path: '/v2/investor/shopping_cards',
+  path: '/v2/investor/shopping_carts',
   data: {
     ticket: {
       amount,
