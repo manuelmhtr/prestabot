@@ -3,6 +3,7 @@ const totp = require('totp-generator');
 const {
   addRequisitionToCart,
   authorizeCart,
+  fetchCart,
   fetchLogin,
   fetchRequisitions,
 } = require('../fetchers');
@@ -26,6 +27,9 @@ function performLends(params) {
   const execute = async () => {
     await updateToken(fetchLogin(credentials));
     const { requisitions } = await updateToken(fetchRequisitions({ accessToken }));
+    const { processingOrders } = await updateToken(fetchCart({ accessToken }));
+
+    if (processingOrders > 0) return;
     const possibleOnes = requisitions.filter(simpleFilter);
     const sortedRequisitions = sortRequisitions(possibleOnes);
     await addToCart(sortedRequisitions);
@@ -41,9 +45,14 @@ function performLends(params) {
     return data;
   };
 
-  const simpleFilter = (requisition) => {
-    const { alreadyLent, interestRate, purpose, term, missingAmount } = requisition;
-    const creditScore = get(requisition, 'creditReport.score');
+  const simpleFilter = ({
+    term,
+    purpose,
+    alreadyLent,
+    creditScore,
+    interestRate,
+    missingAmount,
+  }) => {
     if (alreadyLent) return false;
     if (!missingAmount || missingAmount < LEND_AMOUNT) return false;
     if (interestRate < MIN_INTEREST_RATE) return false;

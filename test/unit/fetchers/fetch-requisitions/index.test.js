@@ -32,7 +32,6 @@ describe('Fetchers | fetchRequisitions', () => {
     expect(requisitions).toHaveLength(3);
     expect(requisitions[0]).toMatchObject({
       id: 1097112,
-      zellAppId: '1282244',
       qualification: 'B2',
       interestRate: 16.9,
       purpose: 'PAGAR DEUDAS',

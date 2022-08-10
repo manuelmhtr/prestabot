@@ -1,25 +1,18 @@
-const { get } = require('lodash');
 const { getAccessToken } = require('../../parsers');
 
 const parseRequisition = (data) => {
   const fundedAmount = parseFloat(data.funded_amount);
   return {
     fundedAmount,
-    alreadyLent: fundedAmount > 0,
     id: data.id,
-    zellAppId: data.zell_app_id,
+    alreadyLent: fundedAmount > 0,
     qualification: data.qualification,
     interestRate: parseFloat(data.rate),
-    purpose: data.destination.toUpperCase(),
+    purpose: data.purpose.toUpperCase(),
     term: parseInt(data.term, 10),
     amount: parseFloat(data.approved_amount),
-    missingAmount: parseFloat(get(data, 'loan_detail.missing_amount')),
-    daysToEnd: parseInt(get(data, 'loan_detail.days_to_end'), 10),
-    hidden: data.hidden,
-    creditReport: {
-      score: parseInt(get(data, 'credit_report.score'), 10),
-      age: parseInt(get(data, 'credit_report.history_antiquity'), 10),
-    },
+    missingAmount: parseFloat(data.missing_amount),
+    creditScore: parseInt(data.credit_score, 10),
   };
 };
 
