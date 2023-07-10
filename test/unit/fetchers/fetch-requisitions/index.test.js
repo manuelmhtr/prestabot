@@ -40,12 +40,6 @@ describe('Fetchers | fetchRequisitions', () => {
       missingAmount: 44600.00,
       fundedAmount: 400.0,
       alreadyLent: true,
-      daysToEnd: 13,
-      hidden: false,
-      creditReport: {
-        score: 722,
-        age: 20,
-      },
     });
   });
 });
