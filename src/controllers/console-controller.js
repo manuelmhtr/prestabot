@@ -1,5 +1,6 @@
+require('dotenv').config();
 const execute = require('./execute');
 
 return execute()
-  .then(() => console.log('SUCCESS'))
+  .then((results) => console.log({ success: true, ...results }))
   .catch(error => console.log('ERROR', error));

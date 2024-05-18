@@ -32,20 +32,17 @@ describe('Fetchers | fetchRequisitions', () => {
     expect(requisitions).toHaveLength(3);
     expect(requisitions[0]).toMatchObject({
       id: 1097112,
+      alreadyLent: true,
       qualification: 'B2',
       interestRate: 16.9,
-      purpose: 'PAGAR DEUDAS',
+      destination: 'PAGAR DEUDAS',
       term: 12,
       amount: 100000.0,
       missingAmount: 44600.00,
       fundedAmount: 400.0,
-      alreadyLent: true,
-      daysToEnd: 13,
-      hidden: false,
-      creditReport: {
-        score: 722,
-        age: 20,
-      },
+      creditScore: 722,
+      previousLoans: 3,
+      isWarranted: true,
     });
   });
 });

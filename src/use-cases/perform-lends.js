@@ -10,15 +10,15 @@ const {
 const {
   getMinInterestRate,
   getMinCreditScore,
-  getLendAmount,
   getTermRange,
+  getMinLendAmount,
+  getMaxLendAmount,
 } = require('../config');
 
 const MIN_INTEREST_RATE = getMinInterestRate();
 const MIN_CREDIT_SCORE = getMinCreditScore();
 const TERM_RANGE = getTermRange();
-const LEND_AMOUNT = getLendAmount();
-const AVOID_PURPOSES = ['NEGOCIO', 'OTROS'];
+const AVOID_DESTINATIONS = ['NEGOCIO', 'OTROS'];
 
 function performLends(params) {
   const { credentials, otpSecret } = params;
@@ -32,11 +32,16 @@ function performLends(params) {
     if (processingOrders > 0) return;
     const possibleOnes = requisitions.filter(simpleFilter);
     const sortedRequisitions = sortRequisitions(possibleOnes);
-    await addToCart(sortedRequisitions);
+    const orders = await addToCart(sortedRequisitions);
 
-    if (!sortedRequisitions.length) return;
-    const otp = totp(otpSecret);
-    await authorizeCart({ otp, accessToken });
+    if (sortedRequisitions.length > 0) {
+      const otp = totp(otpSecret);
+      await authorizeCart({ otp, accessToken });
+    }
+
+    return {
+      orders,
+    };
   };
 
   const updateToken = async (request) => {
@@ -47,16 +52,16 @@ function performLends(params) {
 
   const simpleFilter = ({
     term,
-    purpose,
+    destination,
     alreadyLent,
     creditScore,
     interestRate,
     missingAmount,
   }) => {
     if (alreadyLent) return false;
-    if (!missingAmount || missingAmount < LEND_AMOUNT) return false;
+    if (!missingAmount) return false;
     if (interestRate < MIN_INTEREST_RATE) return false;
-    if (AVOID_PURPOSES.includes(purpose)) return false;
+    if (AVOID_DESTINATIONS.includes(destination)) return false;
     if (creditScore < MIN_CREDIT_SCORE) return false;
     if (TERM_RANGE.min && term < TERM_RANGE.min) return false;
     if (TERM_RANGE.max && term > TERM_RANGE.max) return false;
@@ -67,15 +72,24 @@ function performLends(params) {
     return requisitions.sort((a, b) => a.interestRate < b.interestRate);
   };
 
+  const calculateLendAmount = ({
+    previousLoans,
+    isWarranted,
+    missingAmount,
+  }) => {
+    const isGreatDeal = previousLoans > 1 || isWarranted;
+    const base = isGreatDeal ? getMaxLendAmount() : getMinLendAmount();
+    return Math.min(missingAmount || 0, base);
+  };
+
   const addToCart = (requisitions) => {
     return requisitions.reduce(async (waitForLast, requisition) => {
-      await waitForLast;
-      return updateToken(addRequisitionToCart({
-        accessToken,
-        amount: LEND_AMOUNT,
-        requisitionId: requisition.id,
-      }));
-    }, Promise.resolve());
+      const prev = await waitForLast;
+      const amount = calculateLendAmount(requisition);
+      const options = { amount, requisitionId: requisition.id };
+      await updateToken(addRequisitionToCart({ ...options, accessToken }));
+      return [...prev, options];
+    }, Promise.resolve([]));
   };
 
   return execute();

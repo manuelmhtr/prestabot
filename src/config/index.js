@@ -14,7 +14,9 @@ const getTermRange = () => ({
 
 const getMinInterestRate = () => parseFloat(env.MIN_INTEREST);
 
-const getLendAmount = () => parseInt(env.LEND_AMOUNT, 10);
+const getMinLendAmount = () => parseInt(env.MIN_LEND_AMOUNT, 10);
+
+const getMaxLendAmount = () => parseInt(env.MAX_LEND_AMOUNT, 10);
 
 const getMinCreditScore = () => parseInt(env.MIN_CREDIT_SCORE, 10);
 
@@ -23,6 +25,7 @@ module.exports = {
   getOtpSecret,
   getTermRange,
   getMinInterestRate,
-  getLendAmount,
   getMinCreditScore,
+  getMinLendAmount,
+  getMaxLendAmount,
 };

@@ -31,7 +31,8 @@ $ node ./src/controllers/console-controller.js
 |`MIN_CREDIT_SCORE`|Float|The minimum credit score required on a requisition to lend money. For example: `700`.|
 |`MIN_TERM`|Integer|The minimum payment term of the requisitions (in months). Possible values are `6`, `12`, `18`, `24` or `30`.|
 |`MAX_TERM`|Integer|The maximum payment term of the requisitions (in months). Possible values are `12`, `18`, `24`, `30` or `36`.|
-|`LEND_AMOUNT`|Integer|The amount in MXN to lend each on each requisition that passed the filters. Must $200 or more and be a multiple of $100. For example: `300`,`500` or `1000`.|
+|`MIN_LEND_AMOUNT`|Integer|The amount in MXN to lend each on each requisition that passed the filters. Must $200 or more and be a multiple of $100. For example: `300`,`500` or `1000`.|
+|`MAX_LEND_AMOUNT`|Integer|The amount in MXN to lend each on each requisition that passed the filters and is great deal (ie. it's warranted or has multiple paid loans). Must $200 or more and be a multiple of $100.|
 
 ## Getting the OTP Secret
 
@@ -51,15 +52,15 @@ $ node ./src/controllers/console-controller.js
 Yes, the only known issue is: if you change your password manually or set the `PASSWORD` env variable wrong, the bot may lock your account after the 3rd login attempt. In that case, you'll need to unlock your account manually by opening a link you should have received by email.
 
 
-**What happens if I active _Autoinvest_ in my account along with this bot?**
+**What happens if I enable _Autoinvest_ in my account along with this bot?**
 
 _Autoinvest_ is the native "programmatic bot" provided by Yotepresto once your account reaches $20,000 mxn.
 
-If is is active along with _Prestabot_, it may happen one of two things for requisitions that matches both filters for _Autoinvest_ AND _Prestabot_:
+If it is active along with _Prestabot_, it may happen one of two things for requisitions that matches both filters for _Autoinvest_ AND _Prestabot_:
 
 A. If _Autoinvest_ lends to a requisition first, _Prestabot_ will be aware and will skip it.
 B. If _Prestabot_ lends to a requisition first, _Autoinvest_ **may lend to this requisition again**. So, you'll end up lending twice to some people.
 
 ## Support
 
-You like this project? support it by [buying me a beer](https://github.com/sponsors/manuelmhtr) 🍺.
+Do you like this project? support it by [buying me a beer](https://github.com/sponsors/manuelmhtr) 🍺.

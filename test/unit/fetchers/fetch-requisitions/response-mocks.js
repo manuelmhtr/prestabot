@@ -15,64 +15,73 @@ const successfulResponse = {
     "requisitions": [
       {
         "id": 1097112,
-        "zell_app_id": "1282244",
+        "zell_app_id": 1282244,
         "qualification": "B2",
         "rate": "16.9",
         "destination": "Pagar Deudas",
         "term": 12,
         "approved_amount": "100000.0",
+        "credit_report": {
+          "history_antiquity": 20,
+          "score": 722
+        },
+        "zapopan": true,
+        "number_of_credits": 3,
         "loan_detail": {
           "missing_amount": "44600.00",
-          "days_to_end": "13"
+          "days_to_end": 13
         },
         "funded_amount": "400.0",
         "hidden": false,
-        "credit_report": {
-          "score": 722,
-          "history_antiquity": 20
-        },
-        "zapopan": false
+        "ticket_counts": 0,
+        "to_be_approved_amount": "0.0"
       },
       {
-        "id": 1121728,
-        "zell_app_id": "1308680",
-        "qualification": "B6",
-        "rate": "20.9",
-        "destination": "Automóvil",
-        "term": 12,
-        "approved_amount": "30000.0",
+        "id": 3628144,
+        "zell_app_id": 6637230,
+        "qualification": "A6",
+        "rate": "13.9",
+        "destination": "Gastos Familiares",
+        "term": 36,
+        "approved_amount": "310000.0",
+        "credit_report": {
+          "history_antiquity": 12,
+          "score": 681
+        },
+        "zapopan": true,
+        "number_of_credits": 2,
         "loan_detail": {
-          "missing_amount": "0.00",
-          "days_to_end": "13"
+          "missing_amount": "143500.0",
+          "days_to_end": 24
         },
-        "funded_amount": 0,
+        "funded_amount": "0.0",
         "hidden": false,
-        "credit_report": {
-          "score": 701,
-          "history_antiquity": 4
-        },
-        "zapopan": false
+        "ticket_counts": 0,
+        "to_be_approved_amount": "0.0"
       },
       {
-        "id": 1122783,
-        "zell_app_id": "1309807",
-        "qualification": "B5",
-        "rate": "19.9",
+        "id": 3543838,
+        "zell_app_id": 6550272,
+        "qualification": "B4",
+        "rate": "18.9",
         "destination": "Pagar Deudas",
-        "term": 24,
-        "approved_amount": "50000.0",
-        "loan_detail": {
-          "missing_amount": "0.00",
-          "days_to_end": "13"
-        },
-        "funded_amount": "24000.0",
-        "hidden": false,
+        "term": 36,
+        "approved_amount": "400000.0",
         "credit_report": {
-          "score": 677,
-          "history_antiquity": 11
+          "history_antiquity": 11,
+          "score": 673
         },
-        "zapopan": false
-      },
+        "zapopan": false,
+        "number_of_credits": 1,
+        "loan_detail": {
+          "missing_amount": "226100.0",
+          "days_to_end": 24
+        },
+        "funded_amount": "0.0",
+        "hidden": false,
+        "ticket_counts": 0,
+        "to_be_approved_amount": "0.0"
+      }
     ],
   }
 };
