@@ -1,4 +1,3 @@
-const { get } = require('lodash');
 const totp = require('totp-generator');
 const {
   addRequisitionToCart,
@@ -26,8 +25,8 @@ function performLends(params) {
 
   const execute = async () => {
     await updateToken(fetchLogin(credentials));
-    const { requisitions } = await updateToken(fetchRequisitions({ accessToken }));
-    const { processingOrders } = await updateToken(fetchCart({ accessToken }));
+    const { requisitions } = await fetchRequisitions({ accessToken });
+    const { processingOrders } = await fetchCart({ accessToken });
 
     if (processingOrders > 0) return;
     const possibleOnes = requisitions.filter(simpleFilter);
@@ -87,7 +86,11 @@ function performLends(params) {
       const prev = await waitForLast;
       const amount = calculateLendAmount(requisition);
       const options = { amount, requisitionId: requisition.id };
-      await updateToken(addRequisitionToCart({ ...options, accessToken }));
+      try {
+        await addRequisitionToCart({ ...options, accessToken });
+      } catch (e) {
+        console.log('error', e);
+      }
       return [...prev, options];
     }, Promise.resolve([]));
   };
